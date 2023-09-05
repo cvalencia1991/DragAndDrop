@@ -6,12 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -w",
-    "start":"lite-server"
+    "start": "lite-server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "lite-server": "^2.6.1",
     "typescript": "^5.2.2"
   }
 }
