@@ -29,9 +29,33 @@ class ProjectInput {
         this.configure();
         this.attach();
     }
+    gatherUserInput() {
+        const enteredTitle = this.titleInputElement.value;
+        const enteredDescription = this.descriptionInputElement.value;
+        const enterededPeople = this.peopleInputElement.value;
+        if (enteredTitle.trim().length === 0 ||
+            enteredDescription.trim().length === 0 ||
+            enterededPeople.trim().length === 0) {
+            alert('invalid Inpuyt, please try again!');
+            return;
+        }
+        else {
+            return [enteredTitle, enteredDescription, +enterededPeople];
+        }
+    }
+    clearAllinputs() {
+        this.titleInputElement.value = '';
+        this.descriptionInputElement.value = '';
+        this.peopleInputElement.value = '';
+    }
     submitHandler(event) {
         event.preventDefault();
-        console.log(this.titleInputElement.value);
+        const userInput = this.gatherUserInput();
+        if (Array.isArray(userInput)) {
+            const [title, desc, people] = userInput;
+            console.log(title, desc, people);
+            this.clearAllinputs();
+        }
     }
     configure() {
         this.element.addEventListener('submit', this.submitHandler);
