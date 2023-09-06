@@ -1,18 +1,19 @@
 {
-  "name": "draganddrop",
+  "name": "understanding-typescript",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Understanding TypeScript Course Setup",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -w",
     "start": "lite-server"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "typescript",
+    "course"
+  ],
+  "author": "Maximilian Schwarzmüller",
   "license": "ISC",
   "devDependencies": {
-    "lite-server": "^2.6.1",
-    "typescript": "^5.2.2"
+    "lite-server": "^2.5.4"
   }
 }
