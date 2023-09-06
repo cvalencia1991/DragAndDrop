@@ -35,6 +35,26 @@ function Autobind(_, _2, descriptor) {
     };
     return adjDescriptor;
 }
+class ProjectList {
+    constructor(type) {
+        this.type = type;
+        this.templateElement = document.getElementById('project-list');
+        this.hostElement = document.getElementById('app');
+        const importedNode = document.importNode(this.templateElement.content, true);
+        this.element = importedNode.firstElementChild;
+        this.element.id = `${this.type}-projects`;
+        this.attach();
+        this.renderContent();
+    }
+    renderContent() {
+        const listId = `${this.type}-projects-list`;
+        this.element.querySelector('ul').id = listId;
+        this.element.querySelector('h2').textContent = this.type.toUpperCase() + 'PROJECTS';
+    }
+    attach() {
+        this.hostElement.insertAdjacentElement('beforeend', this.element);
+    }
+}
 class ProjectInput {
     constructor() {
         this.templateElement = document.getElementById('project-input');
@@ -65,7 +85,7 @@ class ProjectInput {
             value: +enterededPeople,
             required: true,
             min: 1,
-            max: 5
+            max: 10
         };
         if (!validate(titleValidatable) || !validate(descriptionValidatable) || !validate(peopleValidatable)) {
             alert('invalid Inpuyt, please try again!');
@@ -100,4 +120,6 @@ __decorate([
     Autobind
 ], ProjectInput.prototype, "submitHandler", null);
 const prjInput = new ProjectInput();
+const activePrList = new ProjectList('active');
+const finishedPrList = new ProjectList('finished');
 //# sourceMappingURL=app.js.map
