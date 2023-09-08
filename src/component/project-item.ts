@@ -1,9 +1,9 @@
-import { Component } from "./base-components.js";
+import Cmp  from "./base-components.js";
 import { Project } from "../models/project.js";
 import { autobind } from "../decorators/autobind.js";
 import { Draggable } from "../models/drag-drop.js";
     // ProjectItem Class
- export class ProjectItem extends Component<HTMLUListElement,HTMLLIElement> implements Draggable{
+ export class ProjectItem extends Cmp<HTMLUListElement,HTMLLIElement> implements Draggable{
     private  project: Project;
     constructor(hostId: string, project: Project){
       super('single-project',hostId,false, project.id);
