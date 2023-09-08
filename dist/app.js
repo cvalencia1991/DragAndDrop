@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var ProjectStatus;
 (function (ProjectStatus) {
-    ProjectStatus[ProjectStatus["Active"] = 0] = "Active";
+    ProjectStatus[ProjectStatus["active"] = 0] = "active";
     ProjectStatus[ProjectStatus["finished"] = 1] = "finished";
 })(ProjectStatus || (ProjectStatus = {}));
 class Project {
@@ -40,8 +40,18 @@ class ProjectState extends State {
         return this.instance;
     }
     addProject(title, description, numOfPeople) {
-        const newProject = new Project(Math.random.toString(), title, description, numOfPeople, ProjectStatus.Active);
+        const newProject = new Project(Math.random().toString(), title, description, numOfPeople, ProjectStatus.active);
         this.projects.push(newProject);
+        this.updateListeners();
+    }
+    moveProject(projectId, newStatus) {
+        const project = this.projects.find(prj => prj.id === projectId);
+        if (project) {
+            project.status = newStatus;
+            this.updateListeners();
+        }
+    }
+    updateListeners() {
         for (const listenerFn of this.listeners) {
             listenerFn(this.projects.slice());
         }
@@ -156,7 +166,8 @@ class ProjectList extends Component {
         listEl.classList.remove('droppable');
     }
     dropHandler(event) {
-        console.log(event.dataTransfer.getData('text/plain'));
+        const projId = event.dataTransfer.getData('text/plain');
+        projectState.moveProject(projId, this.type === 'active' ? ProjectStatus.active : ProjectStatus.finished);
     }
     configure() {
         this.element.addEventListener('dragover', this.dragOverHandler);
@@ -165,7 +176,7 @@ class ProjectList extends Component {
         projectState.addListener((projects) => {
             const relevantProjects = projects.filter((prj) => {
                 if (this.type === 'active') {
-                    return prj.status === ProjectStatus.Active;
+                    return prj.status === ProjectStatus.active;
                 }
                 return prj.status === ProjectStatus.finished;
             });
@@ -193,6 +204,9 @@ __decorate([
 __decorate([
     autobind
 ], ProjectList.prototype, "dragLeaveHandler", null);
+__decorate([
+    autobind
+], ProjectList.prototype, "dropHandler", null);
 class ProjectInput extends Component {
     constructor() {
         super('project-input', 'app', true, 'user-input');
