@@ -1,10 +1,9 @@
 
 import { DragTarget} from '../models/drag-drop'
 import Component  from './base-components';
-import { Project } from '../models/project';
+import { Project,ProjectStatus } from '../models/project';
 import { autobind } from '../decorators/autobind';
 import { projectState } from '../state/project-state';
-import { ProjectStatus } from '../models/project';
 import { ProjectItem } from './project-item';
 
 // ProjectList Class
